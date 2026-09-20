@@ -2,3 +2,4 @@
 export { useChat } from './useChat'
 export { useStream } from './useStream'
 export { useResponsive } from './useResponsive'
+export { useCopy } from './useCopy'

@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react';
-import { Button, Tooltip, message } from 'antd';
+import { Button, Tooltip } from 'antd';
 import { CopyOutlined, CheckOutlined } from '@ant-design/icons';
+import { useCopy } from '../../hooks/useCopy';
 
 interface CopyButtonProps {
   /** 要复制的文本 */
@@ -26,31 +26,15 @@ export function CopyButton({
   successText = '已复制',
   showText = false,
 }: CopyButtonProps) {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      message.success(successText);
-      
-      // 2 秒后重置状态
-      setTimeout(() => {
-        setCopied(false);
-      }, 2000);
-    } catch (error) {
-      console.error('Failed to copy:', error);
-      message.error('复制失败，请手动复制');
-    }
-  }, [text, successText]);
+  const { copied, copy } = useCopy({ successText });
 
   return (
-    <Tooltip title={copied ? successText : '复制'}>
+    <Tooltip title="复制">
       <Button
         type="text"
         size={size}
         icon={copied ? <CheckOutlined /> : <CopyOutlined />}
-        onClick={handleCopy}
+        onClick={() => copy(text)}
         className={`copy-button ${copied ? 'copied' : ''} ${className}`}
         style={{
           color: copied ? 'var(--color-success)' : undefined,

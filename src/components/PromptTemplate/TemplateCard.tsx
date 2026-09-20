@@ -7,6 +7,7 @@ import {
   CopyOutlined,
 } from '@ant-design/icons';
 import type { PromptTemplate } from '../../types';
+import { useCopy } from '../../hooks/useCopy';
 import './TemplateCard.css';
 
 interface TemplateCardProps {
@@ -26,6 +27,8 @@ export function TemplateCard({
   onToggleFavorite,
   onPreview,
 }: TemplateCardProps) {
+  const { copy } = useCopy();
+
   const handleDeleteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
@@ -52,7 +55,7 @@ export function TemplateCard({
             icon={<CopyOutlined />}
             onClick={(e) => {
               e.stopPropagation();
-              navigator.clipboard.writeText(template.content);
+              copy(template.content);
             }}
           />
         </Tooltip>,
