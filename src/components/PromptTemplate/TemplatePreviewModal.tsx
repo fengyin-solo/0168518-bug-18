@@ -1,6 +1,7 @@
 import { Modal, Tag, Button, Space } from 'antd';
-import { StarOutlined, StarFilled, EditOutlined, CopyOutlined } from '@ant-design/icons';
+import { StarOutlined, StarFilled, EditOutlined } from '@ant-design/icons';
 import type { PromptTemplate } from '../../types';
+import { CopyButton } from '../Common/CopyButton';
 import './TemplatePreviewModal.css';
 
 interface TemplatePreviewModalProps {
@@ -41,9 +42,12 @@ export function TemplatePreviewModal({
           >
             {template.isFavorite ? '取消收藏' : '收藏'}
           </Button>
-          <Button icon={<CopyOutlined />} onClick={() => navigator.clipboard.writeText(template.content)}>
-            复制内容
-          </Button>
+          <CopyButton
+            text={template.content}
+            type="default"
+            showText
+            buttonText="复制内容"
+          />
           <Button icon={<EditOutlined />} onClick={() => onEdit(template)}>
             编辑
           </Button>

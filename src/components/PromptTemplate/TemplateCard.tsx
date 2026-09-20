@@ -4,9 +4,9 @@ import {
   StarFilled,
   EditOutlined,
   DeleteOutlined,
-  CopyOutlined,
 } from '@ant-design/icons';
 import type { PromptTemplate } from '../../types';
+import { CopyButton } from '../Common/CopyButton';
 import './TemplateCard.css';
 
 interface TemplateCardProps {
@@ -46,16 +46,13 @@ export function TemplateCard({
             }}
           />
         </Tooltip>,
-        <Tooltip key="copy" title="复制内容">
-          <Button
-            type="text"
-            icon={<CopyOutlined />}
-            onClick={(e) => {
-              e.stopPropagation();
-              navigator.clipboard.writeText(template.content);
-            }}
+        <span key="copy" className="template-copy-action">
+          <CopyButton
+            text={template.content}
+            buttonText="复制内容"
+            stopPropagation
           />
-        </Tooltip>,
+        </span>,
         <Tooltip key="edit" title="编辑">
           <Button
             type="text"
